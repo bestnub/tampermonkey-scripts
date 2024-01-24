@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         Booth Toolkit
 // @namespace    http://tampermonkey.net/
-// @version      0.1.1
+// @version      0.1.2
 // @description  Enhance your Booth browsing experience with various features
 // @author       BestNub
+// @downloadURL  https://github.com/bestnub/tampermonkey-scripts/raw/main/booth-toolkit.user.js
+// @updateURL    https://github.com/bestnub/tampermonkey-scripts/raw/main/booth-toolkit.user.js
 // @match        https://booth.pm/*
 // @match        https://*.booth.pm/*
 // @connect      api.currencyapi.com
