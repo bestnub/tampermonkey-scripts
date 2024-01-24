@@ -90,7 +90,7 @@
     }
 
     function isRateUpdated() {
-        const nHourInMillis = 6 * 60 * 60 * 1000;
+        const nHourInMillis = 12 * 60 * 60 * 1000;
         const currentTime = new Date().getTime();
         return !(currentTime - lastUpdate > nHourInMillis);
     }
