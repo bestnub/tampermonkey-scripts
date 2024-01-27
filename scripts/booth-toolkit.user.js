@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Booth Toolkit
 // @namespace    https://github.com/bestnub/tampermonkey-scripts
-// @version      0.1.4
+// @version      0.1.5
 // @description  Enhance your Booth browsing experience with various features
 // @author       BestNub
 // @downloadURL  https://github.com/bestnub/tampermonkey-scripts/raw/main/scripts/booth-toolkit.user.js
@@ -30,11 +30,12 @@
     let paypalFee = 1.05;
     let lastUpdate = GM_getValue('lastUpdate', 0);
     let hasDom = false;
+    let replacedPrices = false;
 
     // Define jpyPatterns for matching and replacing
     const jpyPatterns = [
-        { from: /([\d,]+)\s*JPY/i, to: (matches) => `${convertYenToEuro(parseFloat(matches[1].replace(',', '')))} EUR` },
-        { from: /([\d,]+)\s*¥/i, to: (matches) => `${convertYenToEuro(parseFloat(matches[1].replace(',', '')))}€` },
+        { from: /([\d,]+)\s*JPY/i, to: (matches) => `${convertYenToEuro(parseFloat(matches[1].replace(',', '')))} EUR (${matches[0].replace(',', '')})` },
+        // { from: /([\d,]+)\s*¥/i, to: (matches) => `${convertYenToEuro(parseFloat(matches[1].replace(',', '')))}€` },
         // Add more jpyPatterns as needed
     ];
 
@@ -134,7 +135,7 @@
 
     // Function to replace yen prices with euro prices
     function replaceYenPrices() {
-        if (exchangeRate !== null && hasDom && isRateUpdated()) { // Ensures prices are correctly updated
+        if (!replacedPrices && exchangeRate !== null && hasDom && isRateUpdated()) { // Ensures prices are correctly updated
             console.log("Replacing Prices")
             // Select all elements and filter those containing the JPY pattern
             var elementsWithJPY = Array.from(document.querySelectorAll('*')).filter(containsJPY);
@@ -145,6 +146,7 @@
                 // element.style.outline = '2px dotted green';
                 // Add more actions or styles as needed
             }
+            replacedPrices = true;
         }
     }
 
