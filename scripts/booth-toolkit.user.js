@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Booth Toolkit
 // @namespace    https://github.com/bestnub/tampermonkey-scripts
-// @version      0.1.3
+// @version      0.1.4
 // @description  Enhance your Booth browsing experience with various features
 // @author       BestNub
 // @downloadURL  https://github.com/bestnub/tampermonkey-scripts/raw/main/scripts/booth-toolkit.user.js
@@ -26,6 +26,8 @@
     const targetCurrency = 'EUR';
 
     let exchangeRate = GM_getValue('exchangeRate', null);
+    // TODO: make setting toggle
+    let paypalFee = 1.05;
     let lastUpdate = GM_getValue('lastUpdate', 0);
     let hasDom = false;
 
@@ -38,7 +40,7 @@
 
     // Currency api functions
     function convertYenToEuro(yenPrice) {
-        const euroPrice = yenPrice * exchangeRate;
+        const euroPrice = yenPrice * exchangeRate * paypalFee;
         return euroPrice.toFixed(2);
     }
 
