@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Booth Toolkit
 // @namespace    https://github.com/bestnub/tampermonkey-scripts
-// @version      0.1.5
+// @version      0.1.6
 // @description  Enhance your Booth browsing experience with various features
 // @author       BestNub
 // @downloadURL  https://github.com/bestnub/tampermonkey-scripts/raw/main/scripts/booth-toolkit.user.js
@@ -72,19 +72,23 @@
         }
     }
 
+    let openedNewTabAPI = false
     function checkApiKey() {
         const apiKeyPattern = /^cur_live_[a-zA-Z0-9]{40}$/;
 
         if (!apiKey || !apiKeyPattern.test(apiKey)) {
             // Open CurrencyAPI website in a new tab to guide the user in obtaining an API key
-            GM_openInTab('https://app.currencyapi.com/');
+            if (!openedNewTabAPI) {
+                GM_openInTab('https://app.currencyapi.com/');
+                openedNewTabAPI = true;
+            }
 
             // Prompt user for API key if not set or if the format is incorrect
             apiKey = prompt('Please enter your CurrencyAPI API key (format: cur_live_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX):');
 
             if (!apiKeyPattern.test(apiKey)) {
                 alert('Invalid API key format. Please enter a valid API key. Reload to try again.');
-                // checkApiKey(); // Prompt again if the format is still incorrect
+                checkApiKey(); // Prompt again if the format is still incorrect
                 return;
             }
 
@@ -187,5 +191,6 @@
     window.addEventListener('load', onLoad);
 
     // Run instantly
+    document.documentElement.lang = "ja"
     redirectUrls();
 })();
