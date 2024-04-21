@@ -4,8 +4,8 @@
 // @version      0.1
 // @description  Downloads subs
 // @author       BestNub
-// @downloadURL  https://github.com/bestnub/tampermonkey-scripts/raw/main/scripts/subtitle-downloader.js
-// @updateURL    https://github.com/bestnub/tampermonkey-scripts/raw/main/scripts/subtitle-downloader.js
+// @downloadURL  https://github.com/bestnub/tampermonkey-scripts/raw/main/scripts/subtitle-downloader.user.js
+// @updateURL    https://github.com/bestnub/tampermonkey-scripts/raw/main/scripts/subtitle-downloader.user.js
 // @match        *://*/*
 // @grant        none
 // ==/UserScript==
