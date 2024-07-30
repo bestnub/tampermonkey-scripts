@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Subtitle Downloader
 // @namespace    https://github.com/bestnub/tampermonkey-scripts
-// @version      0.1
+// @version      0.2
 // @description  Downloads subs
 // @author       BestNub
 // @downloadURL  https://github.com/bestnub/tampermonkey-scripts/raw/main/scripts/subtitle-downloader.user.js
