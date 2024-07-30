@@ -6,12 +6,34 @@
 // @author       BestNub
 // @downloadURL  https://github.com/bestnub/tampermonkey-scripts/raw/main/scripts/subtitle-downloader.user.js
 // @updateURL    https://github.com/bestnub/tampermonkey-scripts/raw/main/scripts/subtitle-downloader.user.js
-// @match        *://*/*
-// @grant        none
+// @match        *://megacloud.tv/*
+// @grant        GM_xmlhttpRequest
+// @connect      *
 // ==/UserScript==
 
 (function () {
   'use strict'
+
+  // Function to download the file
+  function downloadFile(url, filename) {
+    GM_xmlhttpRequest({
+      method: 'GET',
+      url: url,
+      responseType: 'blob',
+      onload: function (response) {
+        const blob = new Blob([response.response], { type: 'text/vtt' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      },
+      onerror: function (error) {
+        console.error('Download failed', error);
+      }
+    });
+  }
 
   // Intercept XMLHttpRequest open method
   var originalOpen = XMLHttpRequest.prototype.open
@@ -25,7 +47,7 @@
           console.log(urlO)
           const reg = /\/subtitle\/[a-f0-9]+\/(eng|ger)-\d+\.vtt/
           if (urlO.pathname.match(reg)) {
-            window.open(urlO.toString(), "_blank")
+            downloadFile(urlO.toString(), "subtitle.vtt")
           }
         }
       }
